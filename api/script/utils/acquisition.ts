@@ -114,10 +114,13 @@ function getUpdatePackage(packageHistory: Package[], request: UpdateCheckRequest
     latestSatisfyingEnabledPackage.diffPackageMap &&
     latestSatisfyingEnabledPackage.diffPackageMap[request.packageHash]
   ) {
-    updateDetails.downloadURL = latestSatisfyingEnabledPackage.diffPackageMap[request.packageHash].url;
+    updateDetails.downloadURL = latestSatisfyingEnabledPackage.diffPackageMap[request.packageHash].url?.replace?.(
+      "http://127.0.0.1:10000",
+      process.env.BLOB_URL
+    );
     updateDetails.packageSize = latestSatisfyingEnabledPackage.diffPackageMap[request.packageHash].size;
   } else {
-    updateDetails.downloadURL = latestSatisfyingEnabledPackage.blobUrl;
+    updateDetails.downloadURL = latestSatisfyingEnabledPackage.blobUrl?.replace?.("http://127.0.0.1:10000", process.env.BLOB_URL);
     updateDetails.packageSize = latestSatisfyingEnabledPackage.size;
   }
 
