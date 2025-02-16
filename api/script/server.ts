@@ -28,6 +28,7 @@ defaultServer.start(function (err: Error, app: express.Express) {
       console.log("API host listening at https://localhost:" + port);
     });
   } else {
+    app.set("trust proxy", true);
     server = app.listen(port, function () {
       console.log("API host listening at http://localhost:" + port);
     });
